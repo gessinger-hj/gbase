@@ -1,0 +1,25 @@
+{
+  "name": "gbase",
+  "version": "1.0.0",
+  "description": "Basic items",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gessinger-hj/gbase.git"
+  },
+  "author": "Hans-Jürgen Gessinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gessinger-hj/gbase/issues"
+  },
+  "homepage": "https://github.com/gessinger-hj/gbase#readme",
+  "bin": {
+    "fenc": "./apps/fenc.js"
+  },
+  "dependencies": {
+    "file-encryptor": "^0.1.1"
+  }
+}

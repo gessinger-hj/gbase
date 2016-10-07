@@ -1,0 +1,10 @@
+node_modules
+#dev
+doc
+__pycache__/
+*.pyc
+java-classes/
+*.class/.project
+*.class
+*.tgz
+*.pyc

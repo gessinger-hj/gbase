@@ -1,0 +1,14 @@
+python/test/
+python/dev/
+test/
+java/src/org/gessinger/gepard/test/
+dev/
+__pycache__/
+*.pyc
+java-classes/
+*.class
+.gitignore
+.npmignore
+python/dateutil/
+six.py
+integration-test/
