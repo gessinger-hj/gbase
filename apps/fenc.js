@@ -9,7 +9,7 @@ var inp = g.getProperty ( "in" ) ;
 var out = g.getProperty ( "out" ) ;
 var key = g.getProperty ( "key" ) ;
 
-usage = function ( str )
+var usage = function ( str )
 {
 	if ( str )
 	{
@@ -17,16 +17,26 @@ usage = function ( str )
 	  console.log() ;
 	}
 	console.log ( "fenc - encrypt / decrypt a file" ) ;
-	console.log ( "Usage: node fenc --in=<file> --out=<file> --key=<key>" ) ;
+	console.log ( "Usage: fenc args" ) ;
+	console.log ( "args:    --in=<in-file>" ) ;
+	console.log ( "         if <in-file> ends with .X: decrypt file" ) ;
+	console.log ( "         else                         crypt file" ) ;
+	console.log ( "         --out=<out-file>, for crypt:   optional with default: <in-file>.X" ) ;
+	console.log ( "                           for decrypt: if <in-file> ends with .X default <in-file> minus .X" ) ;
+	console.log ( "         --key=<key>, optional, if not given: prompt for password." ) ;
 	process.exit ( 0 ) ;
+}
+if ( g.getProperty ( "help" ) )
+{
+	usage() ;
 }
 if ( ! key )
 {
-	var prompt = require('prompt');
-	prompt.message = 'Please enter' ; 
-	prompt.start() ;
-	prompt.get ( { name:'pwd', description:'password', hidden: true, required: true }, (err, res ) => {
-		key = res.pwd ;
+	var prompt = require('cli-prompt');
+	prompt.password ( 'pwd: ', (pwd, res ) => {
+		console.log ( "pwd=" + pwd ) ;
+		console.log(res) ;
+		key = pwd ;
 		execute() ;
 	});
 }
