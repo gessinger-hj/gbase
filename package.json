@@ -20,6 +20,7 @@
     "fenc": "./apps/fenc.js"
   },
   "dependencies": {
-    "file-encryptor": "^0.1.1"
+    "file-encryptor": "^0.1.1",
+    "prompt": "^1.0.0"
   }
 }
