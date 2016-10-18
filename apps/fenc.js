@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+var fs = require ( "fs" ) ;
 var g = require ( "gbase" ) ;
 
-var encryptor = require('file-encryptor');
+var Encryptor = require('file-encryptor');
 var path = require('path');
 
 var inp = g.getProperty ( "in" ) ;
@@ -30,12 +31,23 @@ if ( g.getProperty ( "help" ) )
 {
 	usage() ;
 }
+var outputToStdout = false ;
+if ( !inp && !out )
+{
+	var file = process.argv[2] ;
+	if ( fs.existsSync(file) )
+	{
+	  inp = file ;
+	  if ( inp.endsWith ( ".X" ) )
+	  {
+	    outputToStdout = true ;
+	  }
+	}
+}
 if ( ! key )
 {
 	var prompt = require('cli-prompt');
 	prompt.password ( 'pwd: ', (pwd, res ) => {
-		console.log ( "pwd=" + pwd ) ;
-		console.log(res) ;
 		key = pwd ;
 		execute() ;
 	});
@@ -44,6 +56,38 @@ else
 {
 	execute() ;
 }
+Encryptor.decryptFileToStdout = function(inputPath, key, options, callback) {
+	var crypto = require('crypto') ;
+
+  if(typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  options = Encryptor.combineOptions(options);
+
+  var keyBuf = new Buffer(key);
+
+  var inputStream = fs.createReadStream(inputPath);
+  var outputStream = process.stdout;
+  var cipher = crypto.createDecipher(options.algorithm, keyBuf);
+
+  inputStream.on('data', function(data) {
+    var buf = new Buffer(cipher.update(data), 'binary');
+    outputStream.write(buf);
+  });
+
+  inputStream.on('end', function() {
+    try {
+      var buf = new Buffer(cipher.final('binary'), 'binary');
+      outputStream.write(buf);
+      return callback();
+    } catch(e) {
+      return callback(e);
+    }
+  });
+};
+
 function execute ( )
 {
 	if ( !inp || !out || !key )
@@ -71,17 +115,26 @@ function execute ( )
 		{
 	  	out = path.basename ( inp ) ;
 		}
-		encryptor.decryptFile ( inp, out, key, function(err) {
-			if ( err )
-		  	console.log ( err ) ;
-			else
-				console.log ( "done" ) ;
-		});
+		if ( outputToStdout )
+		{
+			Encryptor.decryptFileToStdout ( inp, key, function(err) {
+				process.exit() ;
+			});
+		}
+		else
+		{
+			Encryptor.decryptFile ( inp, out, key, function(err) {
+				if ( err )
+			  	console.log ( err ) ;
+				else
+					console.log ( "done" ) ;
+			});
+		}
 	}
 	else
 	{
 		if ( !out ) out = inp + ".X" ;
-		encryptor.encryptFile ( inp, out, key, function(err) {
+		Encryptor.encryptFile ( inp, out, key, function(err) {
 			if ( err )
 		  	console.log ( err ) ;
 			else
