@@ -10,52 +10,6 @@ var inp = g.getProperty ( "in" ) ;
 var out = g.getProperty ( "out" ) ;
 var key = g.getProperty ( "key" ) ;
 
-var usage = function ( str )
-{
-	if ( str )
-	{
-	  console.log ( str ) ;
-	  console.log() ;
-	}
-	console.log ( "fenc - encrypt / decrypt a file" ) ;
-	console.log ( "Usage: fenc args" ) ;
-	console.log ( "args:    --in=<in-file>" ) ;
-	console.log ( "         if <in-file> ends with .X: decrypt file" ) ;
-	console.log ( "         else                         crypt file" ) ;
-	console.log ( "         --out=<out-file>, for crypt:   optional with default: <in-file>.X" ) ;
-	console.log ( "                           for decrypt: if <in-file> ends with .X default <in-file> minus .X" ) ;
-	console.log ( "         --key=<key>, optional, if not given: prompt for password." ) ;
-	process.exit ( 0 ) ;
-}
-if ( g.getProperty ( "help" ) )
-{
-	usage() ;
-}
-var outputToStdout = false ;
-if ( !inp && !out )
-{
-	var file = process.argv[2] ;
-	if ( fs.existsSync(file) )
-	{
-	  inp = file ;
-	  if ( inp.endsWith ( ".X" ) )
-	  {
-	    outputToStdout = true ;
-	  }
-	}
-}
-if ( ! key )
-{
-	var prompt = require('cli-prompt');
-	prompt.password ( 'pwd: ', (pwd, res ) => {
-		key = pwd ;
-		execute() ;
-	});
-}
-else
-{
-	execute() ;
-}
 Encryptor.decryptFileToStdout = function(inputPath, key, options, callback) {
 	var crypto = require('crypto') ;
 
@@ -87,6 +41,53 @@ Encryptor.decryptFileToStdout = function(inputPath, key, options, callback) {
     }
   });
 };
+var usage = function ( str )
+{
+	if ( str )
+	{
+	  console.log ( str ) ;
+	  console.log() ;
+	}
+	console.log ( "fenc - encrypt / decrypt a file" ) ;
+	console.log ( "Usage: fenc args" ) ;
+	console.log ( "args:    --in=<in-file>" ) ;
+	console.log ( "         if <in-file> ends with .X: decrypt file" ) ;
+	console.log ( "         else                         crypt file" ) ;
+	console.log ( "         --out=<out-file>, for crypt:   optional with default: <in-file>.X" ) ;
+	console.log ( "                           for decrypt: if <in-file> ends with .X default <in-file> minus .X" ) ;
+	console.log ( "         --key=<key>, optional, if not given: prompt for password." ) ;
+	console.log ( "version: 1.0" ) ;
+	process.exit ( 0 ) ;
+}
+if ( g.getProperty ( "help" ) || process.argv.length === 2 )
+{
+	usage() ;
+}
+var outputToStdout = false ;
+if ( !inp && !out )
+{
+	var file = process.argv[2] ;
+	if ( fs.existsSync(file) )
+	{
+	  inp = file ;
+	  if ( inp.endsWith ( ".X" ) )
+	  {
+	    outputToStdout = true ;
+	  }
+	}
+}
+if ( ! key )
+{
+	var prompt = require('cli-prompt');
+	prompt.password ( 'pwd: ', (pwd, res ) => {
+		key = pwd ;
+		execute() ;
+	});
+}
+else
+{
+	execute() ;
+}
 
 function execute ( )
 {
