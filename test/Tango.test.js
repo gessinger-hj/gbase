@@ -5,7 +5,7 @@ let path = require  ( "path" ) ;
 
 let testCaseName = process.argv[2]
 
-let testCases = [ "resolve", "isLocalHost", "RFC3339" ] ;
+let testCases = [ "resolve", "isLocalHost", "RFC3339", "all" ] ;
 
 if ( testCaseName === "all" )
 {

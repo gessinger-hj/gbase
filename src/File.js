@@ -526,17 +526,7 @@ if ( require.main === module )
 //	var f = new File ( "x/y/z" ) ;
 //	console.log ( "" + f ) ;
 //	f.mkdirs() ;
-// 	var CsvReader = require ( "CsvReader" ) ;
-// 	var csvr = new CsvReader ( new File ( "x.csv" ).lines() ) ;
-// 	csvr.on ( "array", function onarray(a)
-// 	{
-// console.log ( a ) ;
-// 	});
 
-// 	new File ( "../package.json" ).lines ( function onarray(line)
-// 	{
-// console.log ( "line=" + line ) ;
-// 	});
 // 	var start = 0 ;
 // 	var end = -1 ;
 // 	var file = new File ( "x.log" ) ;
