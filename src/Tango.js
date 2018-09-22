@@ -1123,6 +1123,7 @@ TangoClass.prototype.getLocalNetworAddresses = function()
 TangoClass.prototype.isLocalHost = function ( name, callback )
 {
   var na = this.getLocalNetworAddresses() ;
+
   var dns = require ( "dns" ) ;
   dns.lookup ( name, function ( err, p )
   {
@@ -1131,7 +1132,12 @@ TangoClass.prototype.isLocalHost = function ( name, callback )
       callback ( err, false ) ;
       return ;
     }
-    callback ( err, !!na[p] ) ;
+    var answer = !!na[p];
+    if ( ! answer && p.startsWith ( "127.0" ) ) // ubuntu / debian: 127.0.1.1
+    {
+      answer = true ;
+    }
+    callback ( err, answer ) ;
   });
 };
 TangoClass.prototype.findService = function ( serviceParameter, callback )

@@ -1,6 +1,8 @@
-var Path = require ( "path" ) ;
-var fs = require ( "fs" ) ;
-var util = require ( "util" ) ;
+#!/usr/bin/env node
+
+var Path   = require ( "path" ) ;
+var fs     = require ( "fs" ) ;
+var util   = require ( "util" ) ;
 var stream = require('stream');
 
 /**
@@ -19,13 +21,8 @@ var File = function ( path, name )
 	this.path = path ;
 	if ( name )
 	{
-		this.path += "/" + name ;
+		this.path = Path.join ( this.path, name ) ;
 	}
-	// if ( ! this.path )
-	// {
-	// 	this.path = process.cwd() ;
-	// }
-	// this.path = Path.normalize ( this.path ) ;
 };
 /**
  * Description
@@ -72,6 +69,7 @@ File.prototype.getParentAbsolute = function()
  */
 File.prototype.getString = function()
 {
+	console.log ( "getString --------------------------" ) ;
 	return fs.readFileSync ( this.path, 'utf8' ) ;
 };
 /**
@@ -523,8 +521,9 @@ File.prototype.getList = function()
 module.exports = File ;
 if ( require.main === module )
 {
-//	var f = new File ( "x/y/z" ) ;
-//	console.log ( "" + f ) ;
+	let os = require("os");
+	var f = new File ( os.tmpdir(), "x/y/z" ) ;
+	console.log ( "" + f ) ;
 //	f.mkdirs() ;
 
 // 	var start = 0 ;

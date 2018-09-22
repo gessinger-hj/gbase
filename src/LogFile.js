@@ -1035,30 +1035,3 @@ if ( ! org.gessinger.tangojs.LogFile )
   org.gessinger.tangojs.LogFile = new LogFile() ;
 }
 module.exports = org.gessinger.tangojs.LogFile ;
-
-if ( require.main === module )
-{
-  var Log = org.gessinger.tangojs.LogFile ;
-  Log.init ( "redirect=3+,level=notice,file=Log-%DATE%.log" ) ;
-  Log.emergency ( "-emergency---------------" ) ;
-  Log.alert ( "-alert---------------" ) ;
-  Log.critical ( "-critical---------------" ) ;
-Log.setLevel ( Log.LogLevel.DEBUG ) ;
-  Log.error ( "-error---------------" ) ;
-  Log.warning ( "-warning---------------" ) ;
-  Log.info ( "-info---------------" ) ;
-  Log.notice ( "-notice---------------" ) ;
-  Log.debug ( "-debug---------------" ) ;
-  console.log ( "1 ---- console.log ---------" ) ;
-  // Log.redirectOutput() ;
-  console.log ( "%sXXX", "2 ---- console.log ---------" ) ;
-  console.log ( "3 ---- console.log ---------" ) ;
-  // Log.unredirectOutput() ;
-  console.log ( "4 ---- console.log ---------" ) ;
-  console.error ( "4 ---- console.error ---------" ) ;
-  console.warn ( "4 ---- console.warn ---------" ) ;
-  console.info ( "4 ---- console.info ---------" ) ;
-  process.stdout.write ( "5 ---- write ---------\n" ) ;
-// Log.flush() ;
-// process.exit(0) ;
-}

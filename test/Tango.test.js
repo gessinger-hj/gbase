@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
+const chai = require("chai");
+const expect = chai.expect;
+const assert = chai.assert;
+const sinon = require("sinon");
+
 let g    = require  ( "gbase" ) ;
 let path = require  ( "path" ) ;
 
-let testCaseName = process.argv[2]
-
+let testCaseName = "all";
 let testCases = [ "resolve", "isLocalHost", "RFC3339", "all" ] ;
 
 if ( testCaseName === "all" )
@@ -16,60 +20,74 @@ if ( testCaseName === "all" )
 }
 else
 {
-  if ( ! test ( testCaseName ) )
-  {
-    usage() ;
-  }
+  test ( testCaseName ) ;
 }
 
 function test ( testCaseName )
 {
   if ( testCaseName === "isLocalHost" )
   {
-    g.isLocalHost ( "wevli077", function ( err, p )
-    {
-      console.log ( "p=" + p ) ;
-    }) ;
+    describe("gepard", function() {
+      it("gepard.isLocalHost('Roma')", function(done) {
+        g.isLocalHost ( "roma", function ( err, p )
+        {
+          if ( p != true ) done(new Error("localhost should be Roma"));
+          else done();
+        }) ;
+      });
+    });
   }
   else
   if ( testCaseName === "RFC3339" )
   {
-    console.log ( new Date().toRFC3339String() ) ;
+    describe("RFC3339", function() {
+      it("date.toRFC3339String()", function() {
+        let s = "2018-09-21T16:20:39.795+02:00" ;
+        let d = new Date ( s );
+        assert.equal(s, d.toRFC3339String());
+      });
+    });
   }
   else
   if ( testCaseName === "resolve" )
   {
-    let o =
-    {
-      "XconnectionHook": "XmpConnectionHook.js"
-    , "XheartbeatMillis": 10000
-    , "tasks": {
-        "rule": "XmpTaskRule"
-      , "list": [
-        { "name":"ack"
-        , "Xrule":"XmpTaskRule"
-        , "stepList": [
-            { "name": "req1", "rule":"%HOSTNAME%" }
-          , { "name": "req2", "rule":"null" }
+    describe("gepard", function() {
+      it("resolve environment variables in object", function() {
+        let o =
+        {
+          "connectionHook": "XmpConnectionHook.js"
+        , "heartbeatMillis": 10000
+        , "tasks": {
+            "rule": "XmpTaskRule"
+          , "list": [
+            { "name":"ack"
+            , "rule":"XmpTaskRule"
+            , "stepList": [
+                { "name": "req1", "rule":"%JAVA_HOME%" }
+              , { "name": "req2", "rule":"null" }
+              ]
+            }
           ]
-        }
-      ]
-      }
-    };
-    g.visit ( o, function ( oo )
-    {
-      if ( Array.isArray ( oo ) )
-      {
-        return ;
-      }
-      for ( var key in oo )
-      {
-        if ( typeof oo[key] !== 'string' ) continue ;
-        if ( oo[key].indexOf ( '%' ) < 0 ) continue ;
-        oo[key] = g.resolve ( oo[key], {} ) ;
-      }
+          }
+        };
+        var newName = "" ;
+        g.visit ( o, function ( oo )
+        {
+          if ( Array.isArray ( oo ) )
+          {
+            return ;
+          }
+          for ( var key in oo )
+          {
+            if ( typeof oo[key] !== 'string' ) continue ;
+            if ( oo[key].indexOf ( '%' ) < 0 ) continue ;
+            oo[key] = g.resolve ( oo[key], {} ) ;
+            newName = oo[key];
+          }
+        });
+        assert(newName.length > 0, true);
+      });
     });
-    g.log ( o ) ;
   }
   else
   {
