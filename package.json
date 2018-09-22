@@ -4,7 +4,9 @@
   "description": "Basic items",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha --recursive --reporter tap test"
+    "test": "node_modules/mocha/bin/mocha --recursive --reporter tap test",
+    "test.one": "node_modules/mocha/bin/mocha -G --recursive --reporter tap test",
+    "test.dev": "node_modules/mocha/bin/mocha -w --recursive --reporter tap test"
   },
   "repository": {
     "type": "git",
