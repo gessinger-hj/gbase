@@ -1,0 +1,11 @@
+stages:
+  - test
+
+image: node:10-alpine
+
+unit_tests:
+  stage: test
+  script:
+    - npm install
+    - mocha --recursive --reporter tap test
+
