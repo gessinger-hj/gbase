@@ -5,7 +5,8 @@ const expect = chai.expect;
 const assert = chai.assert;
 const sinon = require("sinon");
 
-let g    = require  ( "gbase" ) ;
+//let g    = require  ( "gbase" ) ;
+let g    = require  ( "../index.js" ) ;
 let path = require  ( "path" ) ;
 
 let testCaseName = "all";
