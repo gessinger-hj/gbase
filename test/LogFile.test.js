@@ -11,6 +11,7 @@ const path   = require("path");
 let g        = require  ( "../index.js" ) ;
 
 // mocha -G -w --recursive --reporter tap test
+// mocha -G -w --recursive --reporter tap test
 var Log = g.LogFile; //org.gessinger.tangojs.LogFile ;
 console.log ( "Log=" + Log ) ;
 describe("LogFile", function() {
