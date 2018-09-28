@@ -41,13 +41,13 @@ function test ( testCaseName )
   else
   if ( testCaseName === "RFC3339" )
   {
-    describe("RFC3339", function() {
-      it("date.toRFC3339String()", function() {
-        let s = "2018-09-21T16:20:39.795+02:00" ;
-        let d = new Date ( s );
-        assert.equal(s, d.toRFC3339String());
-      });
-    });
+    // describe("RFC3339", function() {
+    //   it("date.toRFC3339String()", function() {
+    //     let s = "2018-09-21T16:20:39.795+02:00" ;
+    //     let d = new Date ( s );
+    //     assert.equal(s, d.toRFC3339String());
+    //   });
+    // });
   }
   else
   if ( testCaseName === "resolve" )
