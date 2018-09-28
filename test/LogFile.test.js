@@ -39,10 +39,25 @@ console.log ( "Log=" + Log ) ;
     process.stdout.write ( "5 ---- write ---------\n" ) ;
     log.unredirectOutput() ;
   });
-  it("check size", function(done) {
+  it("check output", function(done) {
     setTimeout( () => {
       const fsize = logFile.length();
       console.log ( "fsize=" + fsize ) ;
+      var content = logFile.getString();
+      assert.equal(content.indexOf("emergency")>0,true);
+      assert.equal(content.indexOf( "-alert---------------") > 0, true );
+      assert.equal(content.indexOf( "-critical---------------") > 0, true );
+      assert.equal(content.indexOf( "-debug---------------") > 0, true );
+      assert.equal(content.indexOf( "-error---------------") > 0, true );
+      assert.equal(content.indexOf( "-warning---------------") > 0, true );
+      assert.equal(content.indexOf( "-info---------------") > 0, true );
+      assert.equal(content.indexOf( "-notice---------------") > 0, true );
+      assert.equal(content.indexOf( "-debug---------------") > 0, true );
+      assert.equal(content.indexOf( "4 ---- console.log ---------") > 0, true );
+      assert.equal(content.indexOf( "4 ---- console.error ---------") > 0, true );
+      assert.equal(content.indexOf( "4 ---- console.warn ---------") > 0, true );
+      assert.equal(content.indexOf( "4 ---- console.info ---------") > 0, true );
+      assert.equal(content.indexOf( "5 ---- write ---------") > 0, true );
       done();
     }, 1000 );
   });

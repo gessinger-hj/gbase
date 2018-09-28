@@ -69,7 +69,6 @@ File.prototype.getParentAbsolute = function()
  */
 File.prototype.getString = function()
 {
-	console.log ( "getString --------------------------" ) ;
 	return fs.readFileSync ( this.path, 'utf8' ) ;
 };
 /**
