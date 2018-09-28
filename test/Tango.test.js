@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const chai = require("chai");
+const chai   = require("chai");
 const expect = chai.expect;
 const assert = chai.assert;
-const sinon = require("sinon");
+const sinon  = require("sinon");
 
-//let g    = require  ( "gbase" ) ;
-let g    = require  ( "../index.js" ) ;
-let path = require  ( "path" ) ;
+let g        = require  ( "../index.js" ) ;
+let path     = require  ( "path" ) ;
+let os       = require  ( "os" ) ;
 
 let testCaseName = "all";
 let testCases = [ "resolve", "isLocalHost", "RFC3339", "all" ] ;
@@ -29,8 +29,9 @@ function test ( testCaseName )
   if ( testCaseName === "isLocalHost" )
   {
     describe("gepard", function() {
-      it("gepard.isLocalHost('Roma')", function(done) {
-        g.isLocalHost ( "roma", function ( err, p )
+      const hostname = os.hostname();
+      it("gepard.isLocalHost('" + hostname + "')", function(done) {
+        g.isLocalHost ( hostname, function ( err, p )
         {
           if ( p != true ) done(new Error("localhost should be Roma"));
           else done();
