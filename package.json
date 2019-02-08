@@ -24,13 +24,13 @@
   "dependencies": {
     "cli-prompt": "^0.6.0",
     "file-encryptor": "^0.1.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.3"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "mocha": "^5.2.0",
-    "mochawesome": "^3.0.3",
-    "sinon": "^6.3.4",
-    "tap": "^12.0.1"
+    "mochawesome": "^3.1.1",
+    "sinon": "^6.3.5",
+    "tap": "^12.1.1"
   }
 }
