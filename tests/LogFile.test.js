@@ -44,7 +44,7 @@ console.log ( "Log=" + Log ) ;
       const fsize = logFile.length();
       console.log ( "fsize=" + fsize ) ;
       var content = logFile.getString();
-      assert.equal(content.indexOf("emergency")>0,true);
+      assert.equal(content.indexOf("emergency")>0,false);
       assert.equal(content.indexOf( "-alert---------------") > 0, true );
       assert.equal(content.indexOf( "-critical---------------") > 0, true );
       assert.equal(content.indexOf( "-debug---------------") > 0, true );
