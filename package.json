@@ -1,6 +1,6 @@
 {
   "name": "gbase",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Basic items",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/gessinger-hj/gbase#readme",
   "bin": {
-    "fenc": "./apps/fenc.js"
+    "fenc": "./bin/fenc.js"
   },
   "dependencies": {
     "cli-prompt": "^0.6.0",
@@ -27,10 +27,11 @@
     "rimraf": "^2.6.3"
   },
   "devDependencies": {
+    "assertthat": "^2.0.3",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
-    "mochawesome": "^3.1.1",
+    "mochawesome": "^3.1.2",
     "sinon": "^6.3.5",
-    "tap": "^12.5.2"
+    "tap": "^12.7.0"
   }
 }

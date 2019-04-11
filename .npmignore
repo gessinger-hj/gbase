@@ -2,3 +2,7 @@ apps/
 test/
 .gitignore
 .npmignore
+controllers/
+mochawesome-report/
+tests/
+dev/
