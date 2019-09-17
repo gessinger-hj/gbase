@@ -15,8 +15,9 @@ describe("LogFile", function() {
   let file = new g.File(os.tmpdir(), "gbase-test");
   var Log = g.LogFile; //org.gessinger.tangojs.LogFile ;
 let logFile = new g.File(file, "Log.test.log");
-console.log ( "Log=" + Log ) ;
+console.log ( "Log=" + logFile ) ;
   const log = Log.createInstance() ;
+  
   file.mkdirs();
   log.init ( `level=notice,file=${logFile}` ) ;
   it("init", function() {
@@ -44,7 +45,7 @@ console.log ( "Log=" + Log ) ;
       const fsize = logFile.length();
       console.log ( "fsize=" + fsize ) ;
       var content = logFile.getString();
-      assert.equal(content.indexOf("emergency")>0,false);
+      assert.equal(content.indexOf("emergency")>0,true);
       assert.equal(content.indexOf( "-alert---------------") > 0, true );
       assert.equal(content.indexOf( "-critical---------------") > 0, true );
       assert.equal(content.indexOf( "-debug---------------") > 0, true );

@@ -8,7 +8,7 @@ g.log ( "SECRET=" + SECRET ) ;
 * @Author: Hans Jürgen Gessinger
 * @Date:   2019-05-21 13:46:45
 * @Last Modified by:   Hans+JÃ¼rgen Gessinger
-* @Last Modified time: 2019-08-14 16:33:37
+* @Last Modified time: 2019-09-05 17:59:25
 */
 
 	let inputEncoding = 'utf8'
@@ -62,6 +62,9 @@ console.log ( "text=" + text ) ;
 
   let inputStream = new g.BytesReadable ( text ) ;
   let outputStream = new g.BytesWritable() ;
+
+  outputStream.write (ivstring)
+
   inputStream.on ( 'data', chunk => {
 	  let buf = Buffer.from( cipher2.update ( chunk ), 'binary' );
 	  outputStream.write(buf);
