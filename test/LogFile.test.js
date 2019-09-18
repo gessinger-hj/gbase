@@ -17,7 +17,6 @@ describe("LogFile", function() {
 let logFile = new g.File(file, "Log.test.log");
 console.log ( "Log=" + logFile ) ;
   const log = Log.createInstance() ;
-  
   file.mkdirs();
   log.init ( `level=notice,file=${logFile}` ) ;
   it("init", function() {
